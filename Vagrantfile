@@ -1,8 +1,10 @@
 
 Vagrant.configure("2") do |config|
 
-  config.vm.define "personal_machine" do |pm|
+  config.vm.box_check_update = false
+  config.vm.boot_timeout = 600
 
+  config.vm.define "personal_machine" do |pm|
     pm.vm.box = "hashicorp/bionic64"
     pm.vm.box_version = "1.0.282"
 
@@ -14,6 +16,23 @@ Vagrant.configure("2") do |config|
       v.gui = false
       v.memory = 512
       v.cpus = 1
+
+    end
+
+  end
+
+  config.vm.define "vault_server" do |vault|
+    vault.vm.box = "hashicorp/bionic64"
+    vault.vm.box_version = "1.0.282"
+
+    vault.vm.network "private_network", ip: "172.17.177.20"
+
+    vault.vm.provider "virtualbox" do |v|
+
+      v.name = "Vault Server ( Ubuntu 18.04 LTS 64 )"
+      v.memory = "512"
+      v.cpus = "1" 
+      v.customize ["modifyvm", :id, "--groups", "/iac"]
 
     end
 
