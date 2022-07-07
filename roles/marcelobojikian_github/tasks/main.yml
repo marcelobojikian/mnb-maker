@@ -1,0 +1,17 @@
+---
+- name: 'Install Git'
+  apt:
+    update_cache: yes
+    name: git
+    state: latest
+  become: yes
+
+- name: 'Git checkout project mnb-installer'
+  ansible.builtin.git:
+    repo: "{{ GIT_USER }}/mnb-installer.git"
+    dest: "{{ DEST_PROJECT_LINUX }}/mnb-installer"
+    
+- name: 'Git checkout project Theme-Java'
+  ansible.builtin.git:
+    repo: "{{ GIT_USER }}/Theme-Java.git"
+    dest: "{{ DEST_PROJECT_JAVA }}/Theme-Java"
