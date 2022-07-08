@@ -18,3 +18,4 @@
     name: vault
     state: latest
   become: yes
+  
