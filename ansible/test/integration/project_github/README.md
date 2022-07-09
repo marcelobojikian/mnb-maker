@@ -1,7 +1,7 @@
 # InSpec Profile [project_github]
 
 Implementação dos teste de todos os projetos que serão descarregados para a máquina pessoal.
-Para mais informações, acesse [InSpec profile](../../docs/profiles.md).
+Para mais informações, acesse [InSpec profile](https://docs.chef.io/inspec/profiles/).
 
 ## Verifique esse profile
 
@@ -21,10 +21,10 @@ No errors, warnings, or offenses
 
 ## Execute esse profile
 
-Para executar todos os controles **suportados** em uma máquina local, use `inspec exec test/integration/project_github`.
+Para executar todos os controls **suportados** em uma máquina local, use `inspec exec ansible/test/integration/project_github`.
 
 ```bash
-$ inspec exec test/integration/project_github
+$ inspec exec ansible/test/integration/project_github
 
 Profile:   InSpec Profile (project_github)
 Version:   0.1.0
@@ -42,10 +42,10 @@ Test Summary: 2 successful, 0 failures, 0 skipped
 
 ## Executar um controle específico desse profile
 
-Para executar somente o profile project_github no arquivo marcelobojikian.rb, use `inspec exec test/integration/project_github --controls marcelobojikian`.
+Para executar somente o profile project_github no arquivo marcelobojikian.rb, use `inspec exec ansible/test/integration/project_github --controls marcelobojikian`.
 
 ```bash
-$ inspec exec test/integration/project_github --controls marcelobojikian
+$ inspec exec ansible/test/integration/project_github --controls marcelobojikian
 ..
 Profile Summary: 1 successful control, 0 control failures, 0 controls skipped
 Test Summary: 2 successful, 0 failures, 0 skipped
@@ -53,10 +53,10 @@ Test Summary: 2 successful, 0 failures, 0 skipped
 
 ## Executar esse profile a uma máquina remota
 
-Para executar profile remotamente, use `inspec exec test/integration/project_github -t ssh://vagrant@172.17.177.10 -i /home/vagrant/workspace/DEVOPS/mnb-maker/.vagrant/machines/personal_machine/virtualbox/private_key`.
+Para executar profile remotamente, use `inspec exec ansible/test/integration/project_github -t ssh://vagrant@172.17.177.10 -i .ssh/key_personal_machine`.
 
 ```bash
-$ inspec exec test/integration/project_github -t ssh://vagrant@172.17.177.10 -i /home/vagrant/workspace/DEVOPS/mnb-maker/.vagrant/machines/personal_machine/virtualbox/private_key
+$ inspec exec ansible/test/integration/project_github -t ssh://vagrant@172.17.177.10 -i .ssh/key_personal_machine
 ..
 Profile Summary: 1 successful control, 0 control failures, 0 controls skipped
 Test Summary: 2 successful, 0 failures, 0 skipped

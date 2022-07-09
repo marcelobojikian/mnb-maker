@@ -27,6 +27,22 @@ Vagrant.configure("2") do |config|
 
     vault.vm.network "private_network", ip: "172.17.177.20"
 
+    vault.vm.provision "shell",
+      inline: "cat .ssh/authorized_keys | grep -f /vagrant/.ssh/key_vault_server.pub > /dev/null && echo 'Key OK' || cat /vagrant/.ssh/key_vault_server.pub >> .ssh/authorized_keys"
+
+    vault.vm.provision "shell",
+      inline: "sudo mkdir -p /root/.ssh && cat /vagrant/.ssh/key_vault_server.pub > /root/.ssh/authorized_keys"
+
+      vault.vm.provision :ansible do |ansible|
+        ansible.playbook = "ansible/main.yml"
+        ansible.host_vars = {
+          "vault_server" => {
+            "ansible_python_interpreter" => "/usr/bin/python3",
+            "ansible_ssh_common_args" => "'-o StrictHostKeyChecking=no'"
+          }
+        }
+      end
+
     vault.vm.provider "virtualbox" do |v|
 
       v.name = "Vault Server ( Ubuntu 18.04 LTS 64 )"
