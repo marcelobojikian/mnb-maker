@@ -1,0 +1,39 @@
+--- # https://mariadb.com/docs/service-management/upgrades/community-server/release-series-cs10-5-ubuntu18/
+
+- name: 'Remove antigo'
+  apt:
+    pkg: 
+    - "mariadb-*"
+    - galera-4
+    - galera-3
+    state: absent
+  become: yes
+
+- name: 'Descarrega setup'
+  get_url: 
+    url: "https://downloads.mariadb.com/MariaDB/mariadb_repo_setup"
+    dest: '/tmp/mariadb_repo_setup'
+    checksum: sha256:d4e4635eeb79b0e96483bd70703209c63da55a236eadd7397f769ee434d92ca8
+
+- name: 'Habilita setup'
+  file:
+    path: /tmp/mariadb_repo_setup
+    mode: a+x
+  become: yes  
+
+- name: 'Aplica setup'
+  shell: /tmp/mariadb_repo_setup --mariadb-server-version="mariadb-10.5"
+  args:
+    warn: no
+  become: yes
+
+- name: 'Instala MariaDB'
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+    pkg: 
+    - mariadb-client
+    - mariadb-server
+    - python3-mysqldb
+    state: latest
+  become: yes
