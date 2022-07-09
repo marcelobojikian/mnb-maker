@@ -1,0 +1,10 @@
+name: vault server
+title: Vault server Profile
+maintainer: Marcelo Noguiera Bojikian
+copyright: Marcelo Noguiera Bojikian
+copyright_email: marcelo.bojikian@gmail.com
+license: Apache-2.0
+summary: Instalação do vault
+version: 0.1.0
+supports:
+  - platform-family: unix
