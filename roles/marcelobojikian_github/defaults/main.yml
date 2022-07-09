@@ -1,6 +1,0 @@
----
-GIT_USER: "https://github.com/marcelobojikian"
-
-DEST_PROJECT_LINUX: "{{ ansible_env.HOME }}/workspace/LINUX"
-DEST_PROJECT_JAVA: "{{ ansible_env.HOME }}/workspace/JAVA"
-DEST_PROJECT_DEV_OP: "{{ ansible_env.HOME }}/workspace/DEV_OP"
