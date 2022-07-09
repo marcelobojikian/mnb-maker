@@ -1,12 +1,12 @@
 ---
-# - name: Instala programas na maquina pessoal
-#   hosts: personal_machine
-#   user: vagrant
-#   roles:
-#     - marcelobojikian_github
+- name: Instala programas na maquina pessoal
+  hosts: personal_machine
+  user: vagrant
+  roles:
+    - marcelobojikian_github
 
-- name: Instala programas no servidor vault
+- name: Instala o servidor Vault
   hosts: vault_server
   user: vagrant
   roles:
-    - vault
+    - vault_server
