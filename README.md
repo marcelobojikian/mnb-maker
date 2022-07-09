@@ -56,30 +56,23 @@ E para o desenvolvimento:
 
 ## 🤔 Como usar
 
-Primeiro, configure no arquivo de hosts a máquina que deseja configurar.
-
-Para testar, configure a máquina que está no Vagrant.
+Para facilitar a instalação inicial, execute **config-vault** que ira criar as chaves para todas as maquinas.
 
 ```bash
-172.17.177.10 ansible_user=vagrant ansible_ssh_private_key_file="/home/marcelo/workspace/DEVOPS/mnb-maker/.vagrant/machines/personal_machine/virtualbox/private_key"
+bash config-vault
 ```
 
-Execute o Vagrante para criar/iniciar a máquina de teste na VirtualBox.
-
+Execute **vagrant up** para criar/iniciar todas as máquinas.
 ```bash
-$ vagrant up personal_machine
-```
-
-Aplique a configuração no playbook.
-
-```bash
-$ ansible-playbook -i hosts main.yml
+$ vagrant up 
 ```
 
 Para verificar se está tudo corretamente instalado, use os testes.
 
 ```bash
-$ inspec exec test/integration/project_github -t ssh://vagrant@172.17.177.10 -i /home/marcelo/workspace/DEVOPS/mnb-maker/.vagrant/machines/personal_machine/virtualbox/private_key
+$ inspec exec ansible/test/integration/project_github -t ssh://vagrant@172.17.177.10 -i .ssh/key_personal_machine
+
+$ inspec exec ansible/test/integration/vault_server -t ssh://vagrant@172.17.177.20 -i .ssh/key_vault_server
 ```
 
 ## :memo: Licença
