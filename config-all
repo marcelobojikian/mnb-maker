@@ -1,0 +1,25 @@
+#!/bin/bash
+
+KEY_FOLDER=.ssh
+KEY_VAULT_SERVER_NAME=key_vault_server
+KEY_PERSONAL_MACHINE_NAME=key_personal_machine
+
+_generate_key() {
+
+    local FOLDER=$1
+    local NAME=$2
+
+    ssh-keygen -t rsa -f $FOLDER/$NAME -P ""
+    cp $FOLDER/$NAME $HOME/.ssh
+
+}
+
+if [ ! -d $KEY_FOLDER ]; then
+
+    echo 'Gerando chaves do servidor Vault'
+    mkdir $KEY_FOLDER
+
+    _generate_key $KEY_FOLDER $KEY_VAULT_SERVER_NAME
+    _generate_key $KEY_FOLDER $KEY_PERSONAL_MACHINE_NAME
+
+fi
