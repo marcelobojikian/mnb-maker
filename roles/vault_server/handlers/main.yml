@@ -1,0 +1,7 @@
+---
+- name: restart vault
+  service:
+    name: vault
+    enabled: yes
+    state: restarted
+  become: yes
