@@ -1,0 +1,36 @@
+--- 
+- name: 'Fornecer acesso ao syscall mlock.'
+  capabilities:
+    path: /usr/bin/vault
+    capability: cap_ipc_lock=+ep
+    state: present
+  become: yes
+
+- name: 'Envia o arquivo de configuração.'
+  template:
+    src: 'templates/config.hcl.j2'
+    dest: '/etc/vault.d/config.hcl'
+  become: yes
+
+- name: 'Cria o database'
+  mysql_db:
+    login_user: root
+    name: "{{VAULT_DATABASE_NAME}}"
+  become: yes
+
+- name: 'Cria usuário do banco de dados'
+  no_log: true
+  mysql_user:
+    login_user: root
+    name: "{{VAULT_DATABASE_USERNAME}}"
+    password: "{{VAULT_DATABASE_PASSWORD}}"
+    priv: "{{VAULT_DATABASE_NAME}}.*:ALL"
+  become: yes
+
+- name: 'Adicionar o vault como serviço na máquina'
+  copy:
+    src: 'files/vault.service'
+    dest: '/etc/systemd/system/vault.service'
+  notify:
+    - restart vault
+  become: yes

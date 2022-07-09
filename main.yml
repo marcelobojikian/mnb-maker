@@ -4,3 +4,9 @@
   user: vagrant
   roles:
     - marcelobojikian_github
+
+- name: Instala o servidor Vault
+  hosts: vault_server
+  user: vagrant
+  roles:
+    - vault_server

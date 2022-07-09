@@ -2,3 +2,7 @@
 
 [personal_machine]
 172.17.177.10 ansible_user=vagrant ansible_ssh_private_key_file="/home/marcelo/workspace/DEVOPS/mnb-maker/.vagrant/machines/personal_machine/virtualbox/private_key"
+
+
+[vault_server]
+172.17.177.20 ansible_user=vagrant ansible_ssh_private_key_file="/home/marcelo/workspace/DEVOPS/mnb-maker/.vagrant/machines/vault_server/virtualbox/private_key"
