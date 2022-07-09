@@ -1,0 +1,6 @@
+---
+- name: Instala maquina pessoal
+  hosts: personal_machine
+  user: vagrant
+  roles:
+    - marcelobojikian_github

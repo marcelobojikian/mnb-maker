@@ -10,6 +10,22 @@ Vagrant.configure("2") do |config|
 
     pm.vm.network "private_network", ip: "172.17.177.10"
 
+    pm.vm.provision "shell",
+      inline: "cat .ssh/authorized_keys | grep -f /vagrant/.ssh/key_personal_machine.pub > /dev/null && echo 'Key OK' || cat /vagrant/.ssh/key_personal_machine.pub >> .ssh/authorized_keys"
+
+    pm.vm.provision "shell",
+      inline: "sudo mkdir -p /root/.ssh && cat /vagrant/.ssh/key_personal_machine.pub > /root/.ssh/authorized_keys"
+
+    pm.vm.provision :ansible do |ansible|
+      ansible.playbook = "ansible/personal_machine.yml"
+      ansible.host_vars = {
+        "personal_machine" => {
+          "ansible_python_interpreter" => "/usr/bin/python3",
+          "ansible_ssh_common_args" => "'-o StrictHostKeyChecking=no'"
+        }
+      }
+    end
+
     pm.vm.provider "virtualbox" do |v|
       
       v.name = "Personal Machine ( Ubuntu 18.04 LTS 64 )"
@@ -34,7 +50,7 @@ Vagrant.configure("2") do |config|
       inline: "sudo mkdir -p /root/.ssh && cat /vagrant/.ssh/key_vault_server.pub > /root/.ssh/authorized_keys"
 
       vault.vm.provision :ansible do |ansible|
-        ansible.playbook = "ansible/main.yml"
+        ansible.playbook = "ansible/vault_server.yml"
         ansible.host_vars = {
           "vault_server" => {
             "ansible_python_interpreter" => "/usr/bin/python3",
